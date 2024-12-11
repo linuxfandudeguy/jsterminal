@@ -1,0 +1,30 @@
+@import 'modern-normalize/modern-normalize.css';
+@import '@xterm/xterm/css/xterm.css';
+
+/* Normalize the CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%; /* Full height of the screen */
+  font-family: monospace;
+  background-color: black;
+  color: #00f;
+  overflow: hidden; /* Ensure no scrollbars are visible */
+}
+
+/* Ensure the terminal container takes up the full viewport */
+.terminal-container {
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  display: flex; /* Flexbox layout */
+  flex-direction: column; /* Vertical stacking of children */
+}
+
+/* Prevent scrollbars in the terminal */
+.xterm {
+  flex-grow: 1; /* Allow the terminal to grow and fill space */
+}
