@@ -41,7 +41,7 @@ const App = () => {
           const result = eval(input); // Use eval to execute the code
           term.write(`\n\x1b[32m${result}\x1b[39m\n`);
         } catch (err) {
-          term.write(`\n\x1b[31mError: ${err.message}\x1b[39m\n`);
+          term.write(`\n\x1b[31m[ERROR]: ${err.message}\x1b[39m\n`);
         }
         input = '';
         term.write('> ');
