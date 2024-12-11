@@ -58,7 +58,31 @@ const App = () => {
 
     term.onData(handleData);
 
-    return () => term.dispose(); // Cleanup on unmount
+    // Override console.log to write to the terminal
+    const originalLog = console.log;
+    console.log = (...args) => {
+      const logOutput = args.map(arg => String(arg)).join(' '); // Join arguments and convert to string
+      term.write(`\n\x1b[32m${logOutput}\x1b[39m`); // Style the log output with green color
+    };
+
+    // Ensure console.log behaves like normal
+    console.warn = (...args) => {
+      const warnOutput = args.map(arg => String(arg)).join(' ');
+      term.write(`\n\x1b[33m[WARN] ${warnOutput}\x1b[39m`); // Yellow for warnings
+    };
+
+    console.error = (...args) => {
+      const errorOutput = args.map(arg => String(arg)).join(' ');
+      term.write(`\n\x1b[31m[ERROR] ${errorOutput}\x1b[39m`); // Red for errors
+    };
+
+    return () => {
+      term.dispose();
+      // Restore original console methods
+      console.log = originalLog;
+      console.warn = console.warn;
+      console.error = console.error;
+    };
   }, []);
 
   return (
